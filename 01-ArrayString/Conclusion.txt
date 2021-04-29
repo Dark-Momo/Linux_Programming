@@ -13,9 +13,11 @@ Array defined on stack (local variable):
 
 2. If it is Array[SIZE] form, with initialized elements LESS than size:
    --> Compiler will assign '\0' to those un-initialized space.
-   char Array[4] = {'A'} is actuallly {'A', '\0', '\0', '\0', '\0'};
+   char Array[4] = {'A'} is actuallly {'A', '\0', '\0', '\0'};
    So:
    (1) Its 'sizeof' is assigned SIZE;
    (2) Its 'strlen' is number of elements that actually be initialized;
    (3) So print its elements one by one till a '\0' will work correctly.
 
+   '/0' as a char has its decimal number of 0.
+   '0' as a char has its decimal number of 48.  
