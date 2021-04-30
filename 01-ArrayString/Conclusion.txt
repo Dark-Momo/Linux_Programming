@@ -2,7 +2,7 @@ Conclusion :
 
 Array defined on stack (local variable):
 
-1. If it is Array[] form without explicit size, or size assigned but with initialized element EQUAL to this size:
+1. If it is Array[] form without explicit size, or size assigned but with initialized elements number EQUAL to this size:
    --> Compiler will NOT assign a '\0' at its end.
    So:
    (1) Its 'sizeof' is the number of elements when initialized for Array[] form; and assigned size of Array[SIZE] form;
@@ -11,7 +11,7 @@ Array defined on stack (local variable):
 
    After all, stack section will not be cleared by any one, all data here maybe garbage.
 
-2. If it is Array[SIZE] form, with initialized elements LESS than size:
+2. If it is Array[SIZE] form, with initialized elements number LESS than size:
    --> Compiler will assign '\0' to those un-initialized space.
    char Array[4] = {'A'} is actuallly {'A', '\0', '\0', '\0'};
    So:
@@ -21,3 +21,10 @@ Array defined on stack (local variable):
 
    '/0' as a char has its decimal number of 0.
    '0' as a char has its decimal number of 48.  
+
+So, a very important conclusion here: 
+
+WE ACTUALLY CAN'T KNOW HOW MANY ELEMENTS THERE ARE IN AN ARRAY, IF IT IS DECLARED AND DEFINED IN ARRAY[SIZE] FORM!
+But, if it is declared in Array[] form, we can, by using sizeof(). But if it is re-assigned with a shorter array, we still can't.
+
+
