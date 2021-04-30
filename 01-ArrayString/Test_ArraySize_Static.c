@@ -4,6 +4,17 @@
 int main (void)
 {
     int  i;
+
+    char * buf1 = "Hello";
+    printf("%s\n", buf1);
+
+    char buf2[] = "Hello";
+    printf("%s\n", buf1);
+
+    char buf3[] = {'H','e','l','l','o'};
+    printf("%s\n", buf3);
+
+
     // -----------------------------------------------------------------------------
     /*
     printf("\n");
