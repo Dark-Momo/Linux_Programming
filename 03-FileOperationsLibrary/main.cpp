@@ -4,14 +4,14 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <ostream>
 
 int main(int argc, char *argv[])
 {
     std::ifstream setup_file("./in.txt");
     std::string out;
-    // std::string environment;
+
     std::getline(setup_file, out);
-    // std::getline(setup_file, environment);
 
     std::cout << out << std::endl;
     std::cout << out.size() << std::endl;
@@ -19,9 +19,15 @@ int main(int argc, char *argv[])
     std::cout << out.compare("0x02") << std::endl;
     std::cout << out.compare("0x03") << std::endl;
     std::cout << out.compare("0x04") << std::endl;
+
+    char a[10] = "Hello";
+
+    std::fstream myfile;
+    myfile.open ("./out.txt");
+    myfile << a;
+    myfile.close();
+
     return 0;
-
-
 
     /*
     FILE *stream;

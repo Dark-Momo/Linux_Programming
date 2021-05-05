@@ -3,7 +3,7 @@ Conclusion :
 1. char * Array_1 = "Hello"; 	// sizeof Array_1 == 8
    char Array_2[] = "Hello"; 	// sizeof Array_1 == 6
 
-Array defined on stack (local variable):
+---------- Array defined on stack (local variable) ----------
 
 2. If it is Array[] form without explicit size, or size assigned but with initialized elements number EQUAL to this size:
    --> Compiler will NOT assign a '\0' at its end.
@@ -30,4 +30,7 @@ So, a very important conclusion here:
 WE ACTUALLY CAN'T KNOW HOW MANY ELEMENTS THERE ARE IN AN ARRAY, IF IT IS DECLARED AND DEFINED IN ARRAY[SIZE] FORM!
 But, if it is declared in Array[] form, we can, by using sizeof(). But if it is re-assigned with a shorter array, we still can't.
 
+---------------- Array defined on global area ----------------
 
+The same as array defined on stack, except that this area is initialized to '\0'. 
+Compiler won't add extra '\0' at the end of array if it is Array[] form without explicit size, or size assigned but with initialized elements number EQUAL to this size.
