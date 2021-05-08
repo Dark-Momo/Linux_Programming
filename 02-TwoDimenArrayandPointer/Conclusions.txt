@@ -1,0 +1,68 @@
+1. For 1-dimensional array
+
+If we define: 
+-----------------------------------------------------------
+char Array[5] = {'A', 'B', 'C', 'D', 'E'};
+char *pArray = Array;
+// "char (*p)[5] = Array" also compiles with warning, but print OK as "char (*p)[5] = &Array"
+char (*p)[5] = &Array;
+-----------------------------------------------------------
+Then we have:
+-----------------------------------------------------------
+Array is    :0x7ffe94f33c73
+&Array is   :0x7ffe94f33c73
+&Array[0] is:0x7ffe94f33c73
+*Array is   :A
+*(&Array) is:ABCDE
+Array + 1 = 0x7ffe94f33c74 : (&Array) + 1 = 0x7ffe94f33c78.
+Print Array using *(Array + i) form:ABCDE
+
+pArray is   :0x7ffe94f33c73
+&pArray is  :0x7ffe94f33c60
+*pArray is  :A
+
+p is        :0x7ffe94f33c73
+*p is       :0x7ffe94f33c73
+Print Array using char (*p)[5]:ABCDE
+Print using '%s' for p :ABCDE
+Print using '%s' for *p:ABCDE
+-----------------------------------------------------------
+
+So, for an array:
+
+(1) Its name 'Array', and '&Array', mean the same address, which is the address of the 1st element in the array;
+
+(2) Difference is:
+    -- 'Array' is of type 'char *', pointing to the first element of the array space, 
+       means 'Array + 1' or Array[1], jumps only one element space from Array or Array[0];
+    -- '&Array'is of type 'char (*)[5]', a pointer to array of 5 char, here pointing to the entire space of array space, 
+       means '&Array + 1' or (&Array)[1], jumps entire array space from Array or Array[0]; 
+
+(3) Because 'Array' represents single element, while '&Array' represents whole array:
+    *Array is a single element, *(&Array) is whole array.
+
+(4) Note here, 'Array' and '&Array' is the same, but 'pArray' and '&pArray' is different.
+
+So, pointer has another space to store its own address, while Array name doesn't have an extra space for its own address.
+
+Why? Because array name is NOT a pointer, though it may decay to a pointer a lot of times. 
+
+2. char (*p)[5] defines a pointer p, pointing to an char array with 5 elements.
+
+p and *p have the same value, which are the address of Array. They behaves the same like Array and &Array.The difference 
+between "char (*p)[5] = Array" and "char (*p)[5] = &Array" is that the later one has 5 elements.
+
+So, p points to an area of 5 elements, like &Array; 
+   *p points to single element, like Array.
+
+Print the whole string using %s would be fine for *p, but below warning for using p:
+---------------------------------------------------------------------------------------------------------
+warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[5]’ [-Wformat=]
+     printf("Print using p :%s\n", p);
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
