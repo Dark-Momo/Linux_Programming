@@ -60,9 +60,3 @@ Print the whole string using %s would be fine for *p, but below warning for usin
 warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[5]’ [-Wformat=]
      printf("Print using p :%s\n", p);
 ---------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
