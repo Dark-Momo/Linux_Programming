@@ -36,8 +36,11 @@ So, for an array:
 (2) Difference is:
     -- 'Array' is of type 'char *', pointing to the first element of the array space, 
        means 'Array + 1' or Array[1], jumps only one element space from Array or Array[0];
+
     -- '&Array'is of type 'char (*)[5]', a pointer to array of 5 char, here pointing to the entire space of array space, 
        means '&Array + 1' or (&Array)[1], jumps entire array space from Array or Array[0]; 
+    
+    -- 'Array[3][10]' is of type 'char (*)[10]';
 
 (3) Because 'Array' represents single element, while '&Array' represents whole array:
     *Array is a single element, *(&Array) is whole array.
@@ -62,3 +65,10 @@ Print the whole string using %s would be fine for *p, but below warning for usin
 warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[5]’ [-Wformat=]
      printf("Print using p :%s\n", p);
 -----------------------------------------------------------------------------------------------------------------------
+
+3. For 2-dimensional array
+
+char Array[3][10] is a normal array with char, it is never a char **. For compiler, Array[3][10] is actually Array[3 * 10].
+
+'char **' should be type for things like 'char *Array[3]', an array containing pointers. 
+
