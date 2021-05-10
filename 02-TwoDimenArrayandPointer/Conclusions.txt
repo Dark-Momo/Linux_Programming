@@ -40,7 +40,9 @@ So, for an array:
     -- '&Array'is of type 'char (*)[5]', a pointer to array of 5 char, here pointing to the entire space of array space, 
        means '&Array + 1' or (&Array)[1], jumps entire array space from Array or Array[0]; 
     
-    -- 'Array[3][10]' is of type 'char (*)[10]';
+    -- 'char Array[3][10]' is of type 'char (*)[10]';
+
+    -- 'char *Array[3]' is of type 'char **';
 
 (3) Because 'Array' represents single element, while '&Array' represents whole array:
     *Array is a single element, *(&Array) is whole array.
