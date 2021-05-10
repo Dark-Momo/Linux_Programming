@@ -1,14 +1,15 @@
 1. For 1-dimensional array
 
 If we define: 
------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 char Array[5] = {'A', 'B', 'C', 'D', 'E'};
 char *pArray = Array;
+
 // "char (*p)[5] = Array" also compiles with warning, but print OK as "char (*p)[5] = &Array"
 char (*p)[5] = &Array;
------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 Then we have:
------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 Array is    :0x7ffe94f33c73
 &Array is   :0x7ffe94f33c73
 &Array[0] is:0x7ffe94f33c73
@@ -26,7 +27,7 @@ p is        :0x7ffe94f33c73
 Print Array using char (*p)[5]:ABCDE
 Print using '%s' for p :ABCDE
 Print using '%s' for *p:ABCDE
------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
 So, for an array:
 
@@ -48,6 +49,7 @@ So, pointer has another space to store its own address, while Array name doesn't
 Why? Because array name is NOT a pointer, though it may decay to a pointer a lot of times. 
 
 2. char (*p)[5] defines a pointer p, pointing to an char array with 5 elements.
+   char (*p) (int) defines a function pointer pointing to a function with int as parameter and char as return value. 
 
 p and *p have the same value, which are the address of Array. They behaves the same like Array and &Array.The difference 
 between "char (*p)[5] = Array" and "char (*p)[5] = &Array" is that the later one has 5 elements.
@@ -56,7 +58,7 @@ So, p points to an area of 5 elements, like &Array;
    *p points to single element, like Array.
 
 Print the whole string using %s would be fine for *p, but below warning for using p:
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[5]’ [-Wformat=]
      printf("Print using p :%s\n", p);
----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
