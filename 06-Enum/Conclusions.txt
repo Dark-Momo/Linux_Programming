@@ -1,0 +1,11 @@
+1. sizeof enum
+If we have definition below:
+
+------------------------------------------------
+enum Week {Mon, Tue, Wed, Thur, Fri, Sat, Sun};
+
+typedef enum {Pang1, Pang2, Pang3} Pang;
+------------------------------------------------
+
+We can't use sizeof to 'Week', we can only use sizeof to 'enum week', or the variable name of type 'enum week'.
+After all, 'enum Week' is a type, 'Week' is not.

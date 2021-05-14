@@ -1,0 +1,5 @@
+1. Linux file has a '\n' at the end of each line, including the last line.
+
+2. Read() will just read the assigned number of bytes at its 3rd parameter, including the '\n' at the end of each line.
+   At the end of the file, read() will also read this '\n'. There should be something else at the end of the file, but read()
+   only reads the last '\n'. 
