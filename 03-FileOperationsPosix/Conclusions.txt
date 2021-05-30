@@ -3,3 +3,25 @@
 2. Read() will just read the assigned number of bytes at its 3rd parameter, including the '\n' at the end of each line.
    At the end of the file, read() will also read this '\n'. There should be something else at the end of the file, but read()
    only reads the last '\n'. 
+
+3. output_fd = open (argv[2], O_RDWR | O_CREAT | O_APPEND);
+   
+   File created by above function will have permisson like:
+   -------------------------------------------------------------------------------------------------
+   parallels@parallels-Parallels-Virtual-Platform:~/Linux_Programming/03-FileOperationsPosix$ ls -l
+   total 40
+   -rw-r--r-- 1 parallels parallels 1464 May 29 11:50 1-PosixReadfromFile.c
+   -rw-r--r-- 1 parallels parallels 1218 May 29 12:44 2-Input.txt
+   ---------- 1 parallels parallels 1218 May 29 12:47 2-Output.txt
+   -------------------------------------------------------------------------------------------------
+
+   If it is output_fd = open (argv[2], O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+   -------------------------------------------------------------------------------------------------
+   -rw------- 1 parallels parallels 1218 May 29 13:45 2-Output.txt
+   -------------------------------------------------------------------------------------------------
+
+4. (1) Open() returns file descriptor when success, and -1 when fail. Also set errno when fail.
+   (2) Write() returns the number of bytes written on success.  
+       On error, -1 is returned, and errno is set to indicate the error.
+   (3) Read() returns the number of bytes read (zero indicates end of file), and the file position is advanced by this number.
+       On error, -1 is returned, and errno is set to indicate the error.

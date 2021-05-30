@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
         return 2;
     }
 
-    while ((ret = read(input_fd, &buffer, BUF_SIZE)) > 0)	// Here, () is needed for read assignment. Otherwise ret = 1.
+    while ((ret = read(input_fd, buffer, BUF_SIZE)) > 0)	// Here, () is needed for read assignment. Otherwise ret = 1.
     {								// Read prototype?
         trialCount++;
 	printf("\n[Read Trial %d:]\n", trialCount);

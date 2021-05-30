@@ -1,0 +1,6 @@
+1. printf family;
+2. errno and perror();
+3. big/little endian;
+4. exec, fork(), spawn();
+5. Signal;
+6. IPC;
