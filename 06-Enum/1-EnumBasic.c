@@ -16,9 +16,11 @@ int main(void)
     
     printf("Today is %zu bytes.\n", sizeof(Today));
 
-    Pang Mouse = Pang1;
+    Pang Mouse = Pang3;
     printf("Pang is %zu bytes.\n", sizeof(Pang));
     printf("Mouse is %zu bytes.\n", sizeof(Mouse));
+
+    printf("Pang3 = %d\n", Pang3);
 
     return 0;
 }

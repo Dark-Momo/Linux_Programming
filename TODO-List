@@ -4,3 +4,12 @@
 4. exec, fork(), spawn();
 5. Signal;
 6. IPC;
+7. Function pointer;
+8. Keyboard Input;
+9. enum class;
+   https://www.geeksforgeeks.org/enum-classes-in-c-and-their-advantage-over-enum-datatype/
+10. Type-safe and thread-safe;
+11. Fixed point, floating point, difference, difficulty
+12. ifstream, fstream and so on
+13. Alignment and its meaning
+14. GCC Ox optimization
