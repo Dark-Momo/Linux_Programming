@@ -1,0 +1,31 @@
+Source : https://www.cs.kent.edu/~ruttan/sysprog/lectures/signals.html
+
+A signal is a kind of (usually software) interrupt, used to announce asynchronous events to a process. By their nature, they 
+interrupt whatever the process is doing at this minute, and force it to handle them immediately. Each signal may have a signal
+handler, which is a function that gets called when the process receives that signal. 
+
+The signal handler function is called in "asynchronous mode", meaning that no where in your program you have code that calls 
+this function directly. Instead, when the signal is sent to the process, the operating system stops the execution of the process, 
+and "forces" it to call the signal handler function. When that signal handler function returns, the process continues execution 
+from wherever it happened to be before the signal was received, as if this interruption never occurred.
+
+The difference between INTERRUPT and SIGNAL is, while interrupts are sent to the operating system by the hardware, signals are 
+sent to the process by the operating system, or by other processes. Note that signals have nothing to do with software interrupts,
+which are still sent by the hardware (the CPU itself, in this case). 
+
+
+
+
+
+
+
+There is a limited list of possible signals, might 64 signals as example; we do not invent our own.
+
+Although signals are numbered, we normally refer to them by their names. For example:
+- SIGINT is a signal generated when a user presses Control-C. This will terminate the program from the terminal;
+- SIGALRM is generated when the timer set by the alarm function goes off;
+- SIGABRT is generated when a process executes the abort function;
+- SIGSTOP tells LINUX to pause a process to be resumed later;
+- SIGCONT tells LINUX to resume the processed paused earlier;
+- SIGSEGV is sent to a process when it has a segmentation fault;
+- SIGKILL is sent to a process to cause it to terminate at once; 
