@@ -1,5 +1,7 @@
 Source : https://www.cs.kent.edu/~ruttan/sysprog/lectures/signals.html
 
+1. What is Signal?
+
 A signal is a kind of (usually software) interrupt, used to announce asynchronous events to a process. By their nature, they 
 interrupt whatever the process is doing at this minute, and force it to handle them immediately. Each signal may have a signal
 handler, which is a function that gets called when the process receives that signal. 
@@ -9,23 +11,57 @@ this function directly. Instead, when the signal is sent to the process, the ope
 and "forces" it to call the signal handler function. When that signal handler function returns, the process continues execution 
 from wherever it happened to be before the signal was received, as if this interruption never occurred.
 
+
 The difference between INTERRUPT and SIGNAL is, while interrupts are sent to the operating system by the hardware, signals are 
 sent to the process by the operating system, or by other processes. Note that signals have nothing to do with software interrupts,
 which are still sent by the hardware (the CPU itself, in this case). 
 
+2. Sending Signals To Processes
 
+2.1 Sending Signals Using The Keyboard
 
+The most common way of sending signals to processes is using the keyboard. There are certain key presses that are interpreted 
+by the system as requests to send signals to the process with which we are interacting:
 
+Ctrl-C
+    Pressing this key causes the system to send an INT signal (SIGINT) to the running process. 
+    By default, this signal causes the process to immediately terminate.
 
+Ctrl-\
+    Pressing this key causes the system to send a ABRT signal (SIGABRT) to the running process. 
+    By default, this signal causes the process to immediately terminate. 
+    Note that this redundancy (i.e. Ctrl-\ doing the same as Ctrl-C) gives us some better flexibility.
 
+Ctrl-Z
+    Pressing this key causes the system to send a TSTP signal (SIGTSTP) to the running process. 
+    By default, this signal causes the process to suspend execution. 
 
-There is a limited list of possible signals, might 64 signals as example; we do not invent our own.
+2.2 Sending Signals From The Command Line
 
-Although signals are numbered, we normally refer to them by their names. For example:
-- SIGINT is a signal generated when a user presses Control-C. This will terminate the program from the terminal;
-- SIGALRM is generated when the timer set by the alarm function goes off;
-- SIGABRT is generated when a process executes the abort function;
-- SIGSTOP tells LINUX to pause a process to be resumed later;
-- SIGCONT tells LINUX to resume the processed paused earlier;
-- SIGSEGV is sent to a process when it has a segmentation fault;
-- SIGKILL is sent to a process to cause it to terminate at once; 
+The kill command accepts two parameters: a signal name (or number), and a process ID. Usually the syntax for 
+using it goes something like:
+--------------------
+kill -<signal> <PID>
+--------------------
+For example, in order to send the INT signal to process with PID 5342, type:
+kill -INT 5342
+
+2.3 Sending Signals Using System Calls
+
+A third way of sending signals to processes is by using the kill system call. This is the normal way of sending 
+a signal from one process to another.
+
+3. Catching Signals - Signal Handlers
+
+3.1 Catchable And Non-Catchable Signals
+There are a few signals that the process cannot catch, and cause the process to terminate. For example, SIGKILL (-9).
+SIGSTOP is also a signal that a process cannot catch, and forces the process's suspension immediately. 
+
+Many other signals are catchable, and this includes the famous SEGV and BUS signals. 
+You probably have seen numerous occasions when a program has exited with a message such as 'Segmentation Violation - Core Dumped', 
+or 'Bus Error - core dumped'. 
+In the first occasion, a SEGV signal was sent to your program due to accessing an illegal memory address. 
+In the second case, a BUS signal was sent to your program, due to accessing a memory address with invalid alignment. 
+In both cases, it is possible to catch these signals in order to do some cleanup - kill child processes, perhaps remove 
+temporary files, etc. Although in both cases, the memory used by your process is most likely corrupt, it's probable that only a 
+small part of it was corrupt, so cleanup is still usually possible. 
