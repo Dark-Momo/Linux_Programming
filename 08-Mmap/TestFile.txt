@@ -1,0 +1,1 @@
+Mhis is an example of function mmap().
