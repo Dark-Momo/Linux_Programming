@@ -1,0 +1,38 @@
+[Source]
+https://blog.csdn.net/myselfzhangji/article/details/103333342
+
+1. Shared memory is a designated area in PHYSICAL memory that different procrss's virtual memory mapping can point to. It
+is one way of IPC, and IPC adopted the idea of file operations:
+
+File IO ----------- IPC IO
+open()              Shm_get()
+read()              shmat()
+write()             shmdt()
+close()             shmctrl()
+
+共享内存是一种进程间通信效率最高的方式, 用户空间可以直接访问内核空间的共享内存数据, 而不需要拷贝.
+我们知道进程通信时的数据都是存放在内核中的, 管道通信时需要将数据从内核空间拷贝到用户空间, 这是需要开销的.
+
+2. shmget()
+int shmget(key_t key, int size, int shmflg)
+函数参数
+(1) key:    IPC_PRIVATE 或 ftok()的返回值;
+(2) size :  共享内存区大小;
+(3) shmflg :同open函数的权限位，也可以用八进制表示法;
+返回值      :成功，共享内存段标识符ID文件描述符; 
+            出错 -1, and errno is set to indicate the error;
+
+    Key                                 shmflg                          Effect
+------------------------------------------------------------------------------------------------------
+Not IPC_PRIVATE                     Mode value, or/with         Get previous created shared memory ID
+                                    IPC_CREAT
+-------------------------------------------------------------------------------------------------------
+IPC_PRIVATE                         Mode Value, or/with         Create new shared memory
+                                    IPC_CREAT
+------------------------------------------------------------------------------------------------------
+A Key value, not IPC_PRIVATE,       Mode value, or/with
+but doesn't exist                   IPC_CREAT                   Create new shared memory
+------------------------------------------------------------------------------------------------------
+A Key value, not IPC_PRIVATE,       IPC_CREAT and               Error
+but already exist                   IPC_EXCL
+------------------------------------------------------------------------------------------------------
