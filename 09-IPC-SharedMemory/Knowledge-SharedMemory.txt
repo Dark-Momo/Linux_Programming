@@ -5,7 +5,7 @@ https://blog.csdn.net/myselfzhangji/article/details/103333342
 is one way of IPC, and IPC adopted the idea of file operations:
 
 File IO ----------- IPC IO
-open()              Shm_get()
+open()              shmget()
 read()              shmat()
 write()             shmdt()
 close()             shmctrl()
@@ -36,3 +36,11 @@ but doesn't exist                   IPC_CREAT                   Create new share
 A Key value, not IPC_PRIVATE,       IPC_CREAT and               Error
 but already exist                   IPC_EXCL
 ------------------------------------------------------------------------------------------------------
+
+3. Key generation 
+(1)IPC_PRIVATE
+IPC_PRIVATE is a key generation method, and keys from IPC_PRIVATE are always 0.
+This key method is only for communication between parent/child process from fork().
+
+(2) ftok()
+ftok() generate a key which is not zero, and can be used between processes that have no relationship.
