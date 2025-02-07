@@ -22,6 +22,8 @@ int shmget(key_t key, int size, int shmflg)
 返回值      :成功，共享内存段标识符ID文件描述符; 
             出错 -1, and errno is set to indicate the error;
 
+The shared memory created by shmget() is still in physical memory, and we still can't use it.
+
     Key                                 shmflg                          Effect
 ------------------------------------------------------------------------------------------------------
 Not IPC_PRIVATE                     Mode value, or/with         Get previous created shared memory ID
@@ -44,3 +46,13 @@ This key method is only for communication between parent/child process from fork
 
 (2) ftok()
 ftok() generate a key which is not zero, and can be used between processes that have no relationship.
+
+4. shmat()
+void *shmat(int shmid, const void *shmaddr, int shmflg)
+- shmid     : ID号;
+- shmaddr   : 映射到用户空间的地址， NULL为系统自动完成的映射;
+- shmflg    : SHM_RDONLY共享内存只读. 默认是0，可读可写;
+Return：成功，映射后的结果；失败，返回NULL
+-----------------------------------------------
+shmat函数，将共享内存映射到用户空间，方便在用户空间操作;
+-----------------------------------------------
