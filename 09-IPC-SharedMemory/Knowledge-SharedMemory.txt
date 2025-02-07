@@ -48,11 +48,19 @@ This key method is only for communication between parent/child process from fork
 ftok() generate a key which is not zero, and can be used between processes that have no relationship.
 
 4. shmat()
+-----------------------------------------------
+shmat函数，将共享内存映射到用户空间，方便在用户空间操作;
+-----------------------------------------------
+
 void *shmat(int shmid, const void *shmaddr, int shmflg)
 - shmid     : ID号;
 - shmaddr   : 映射到用户空间的地址， NULL为系统自动完成的映射;
 - shmflg    : SHM_RDONLY共享内存只读. 默认是0，可读可写;
 Return：成功，映射后的结果；失败，返回NULL
------------------------------------------------
-shmat函数，将共享内存映射到用户空间，方便在用户空间操作;
------------------------------------------------
+
+5. shmdt()
+-------------------------
+删除用户空间的共享内存地址映射
+-------------------------
+int shmdt(const void *shmaddr)
+返回值 : 成功0，出错-1

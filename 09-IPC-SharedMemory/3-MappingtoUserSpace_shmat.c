@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     system("ipcs -m");
     
     // Map the shared memory to user space
-    p = (char *)shmat(shmid, NULL, 0);
+    p = (char *)shmat(shmid, NULL, 0); // 0 or 0777 behaves the same
     if (p == NULL) {
         printf("shmat fail\n");
         return -1;
