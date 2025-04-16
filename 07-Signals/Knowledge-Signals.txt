@@ -6,10 +6,11 @@ A signal is a kind of (usually software) interrupt, used to announce asynchronou
 By their nature, they interrupt whatever the process is doing at this moment, and force it to handle them immediately.
 Each signal may have a signal handler, which is a function that gets called when the process receives that signal.
 
-The signal handler function is called in "asynchronous mode", meaning that no where in your program you have code that calls
-this function directly. Instead, when the signal is sent to the process, the operating system stops the execution of the process,
-and "forces" it to call the signal handler function. When that signal handler function returns, the process continues execution
-from wherever it happened to be before the signal was received, as if this interruption never occurred.
+The signal handler function is called in "asynchronous mode", meaning that no where in your program you have code that 
+calls this function directly. Instead, when the signal is sent to the process, the operating system stops the execution 
+of the process, and "forces" it to call the signal handler function. When that signal handler function returns, the 
+process continues execution from wherever it happened to be before the signal was received, as if this interruption 
+never occurred.
 ---------------------------------------------------
 Interrupts          - Hardware -> OS;
 Signals             - OS/Other process -> Process;
@@ -70,7 +71,10 @@ or 'Bus Error - core dumped'.
   only a small part of it was corrupt, so cleanup is still usually possible.
 
 3.2 Defaulf Signal Handlers
-If you don't have a signal handler defined bu yourself, the runtime environment sets up a set of default signal handlers for you.
+If you don't have a signal handler defined by yourself, the runtime environment sets up a set of default signal handlers for you.
 - Default signal handler for the TERM(No.15, same as No.9) signal calls the exit() system call;
 - Default handler for the ABRT(No.6) signal calls the abort() system call, which causes the process's memory image to be dumped into 
-  a file named 'core' in the process's current directory, and then exit. 
+  a file named 'core' in the process's current directory, and then exit.
+
+4. Installing Signal Handlers
+
